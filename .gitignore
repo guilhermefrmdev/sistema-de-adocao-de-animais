@@ -218,4 +218,5 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Backup do Diagramad e Classes
+docs/.$DiagramaDeClasses.drawio.bkp
 docs/.$Diagrama de Classes.drawio.bkp
