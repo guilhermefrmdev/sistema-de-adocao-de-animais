@@ -11,7 +11,7 @@
 ---
 <br>
 
-## [Diagrama de Classes textual](docs\DiagramaDeClassesTextual.md)
+## [Diagrama de Classes textual](docs/DiagramaDeClassesTextual.md)
 
 ## Estrutura de arquivos atual:
 ```
