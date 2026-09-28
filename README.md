@@ -12,3 +12,47 @@
 <br>
 
 ## [Diagrama de Classes textual](docs\DiagramaDeClassesTextual.md)
+
+## Estrutura de arquivos atual:
+```
+│   .gitignore
+│   main.py
+│   README.md
+│
+├───database
+├───docs
+│       DiagramaDeClasses.drawio
+│       DiagramaDeClasses.png
+│       DiagramaDeClassesTextual.md
+│
+├───src
+│   ├───domain
+│   │       adotante.py
+│   │       animal.py
+│   │       cachorro.py
+│   │       fila_espera.py
+│   │       gato.py
+│   │       pessoa.py
+│   │       reserva.py
+│   │       __init__.py
+│   │
+│   ├───enums
+│   │       status_animal.py
+│   │
+│   ├───exceptions
+│   ├───mixins
+│   │       adestravel_mixin.py
+│   │       vacinavel_mixin.py
+│   │
+│   ├───repositories
+│   │       animal_repository.py
+│   │       fila_de_espera_repository.py
+│   │       pessoa_repository.py
+│   │       reserva_repository.py
+│   │
+│   └───strategies
+│           compatibilidade_strategy.py
+│           taxa_adocao_strategy.py
+│
+└───tests
+```
