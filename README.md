@@ -3,7 +3,9 @@
 <p align="center">Esse é um projeto da disciplina de <strong>Programação Orientada a Objetos</strong> do curso de <strong>Engenharia de Software</strong> na <strong>Universidade Federal do Cariri (UFCA)</strong></p>
 
 <div align="center">
+    <a href="https://www.ufca.edu.br/cursos/graduacao/engenharia-de-software/">
     <img alt="Static Badge" src="https://img.shields.io/badge/Universidade%20Federal%20do%20Cariri-blue?style=for-the-badge&link=https%3A%2F%2Fwww.ufca.edu.br%2Fcursos%2Fgraduacao%2Fengenharia-de-software%2F">
+    </a>
 </div>
 
 ---
