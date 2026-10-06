@@ -10,7 +10,7 @@ class Pessoa(PessoaRepository):
     """
 
     def __init__(self, nome: str, idade: int, id: int = None):
-            self.__id = id
+            self.id = id
             self.nome = nome
             self.idade = idade
 
@@ -18,8 +18,12 @@ class Pessoa(PessoaRepository):
 
     # ID
     @property
-    def __id(self):
+    def id(self):
         return self.__id
+
+    @id.setter
+    def id(self, novo_id: int):
+        self.__id = novo_id
 
     # Nome
     @property

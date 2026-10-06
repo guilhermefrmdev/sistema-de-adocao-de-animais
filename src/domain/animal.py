@@ -21,7 +21,7 @@ class Animal():
 
     def __init__(self, nome: str, idade: int, raça: str, sexo: str, status: StatusAnimal, temperamento: list, castrado: bool, porte: PorteAnimal, peso: int, dataEntrada: date, historico: list = [], id: int = None):
         super().__init__()
-        self.__id = id
+        self.id = id
         self.nome = nome
         self.idade = idade
         self.raça = raça
@@ -36,8 +36,12 @@ class Animal():
 
     # ID
     @property
-    def __id(self):
+    def id(self):
         return self.__id
+
+    @id.setter
+    def id(self, novo_id: int):
+        self.__id = novo_id
 
     # Nome
     @property
@@ -133,6 +137,21 @@ class Animal():
     def historico(self):
         return self._historico
 
+    @historico.setter
+    def historico(self, evento):
+    # Verificações de cada atributo
+        if evento['tipo'].strip() == "":
+            raise ValueError("O tipo do evento não pode ser vazio.")
+        if evento['nome'].strip() == "":
+            raise ValueError("O nome do evento não pode ser vazio.")
+        if evento['data'] is None:
+            raise ValueError("A data do evento não pode ser nula.")
+        if isinstance(evento['data'], date) is False:
+            raise ValueError("A data deve ser uma instancia de date.")
+
+        # Adicionar um dicionário do evento na lista
+        self.historico.append({"tipo": evento['tipo'].strip(), "nome": evento['nome'].strip(), "data": evento['data']})
+
     # Porte
     @property
     def porte(self):
@@ -170,7 +189,7 @@ class Animal():
         self._data_entrada = nova_data_entrada
 
     # Métodos especiais
-    def __eq__(self, outro_animal: Animal):
+    def __eq__(self, outro_animal):
         if not isinstance(outro_animal, Animal):
             return False
         return self.__id == outro_animal.__id
@@ -178,29 +197,13 @@ class Animal():
     def __hash__(self):
         return hash(self.__id)
 
-    def __lt__(self, outro_animal: Animal):
+    def __lt__(self, outro_animal):
         return self.data_entrada < outro_animal.data_entrada
 
     # __iter__ iterando o histórico
     def __iter__(self):
         for evento in self.historico:
             yield evento
-
-
-    # Adicionar um evento no histórico
-    def adicionarHistorico(self, tipo: str, nome: str, data: date):
-        # Verificações de cada atributo
-        if tipo.strip() == "":
-            raise ValueError("O tipo do evento não pode ser vazio.")
-        if nome.strip() == "":
-            raise ValueError("O nome do evento não pode ser vazio.")
-        if data is None:
-            raise ValueError("A data do evento não pode ser nula.")
-        if isinstance(data, date) is False:
-            raise ValueError("A data deve ser uma instancia de date.")
-
-        # Adicionar um dicionário do evento na lista
-        self.historico.append({"tipo": tipo.strip(), "nome": nome.strip(), "data": data})
 
     # Mudança de Status: Transições de estado (permitidas):
                         # DISPONIVEL → RESERVADO → ADOTADO

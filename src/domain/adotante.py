@@ -48,11 +48,7 @@ class Adotante(Pessoa):
         return self._moradia
 
     @moradia.setter
-    def moradia(self, nova_moradia: str):
-        nova_moradia = nova_moradia.strip()
-        if nova_moradia == "":
-            raise ValueError("A moradia não pode ser vazia.")
-
+    def moradia(self, nova_moradia: Moradia):
         self._moradia = nova_moradia 
 
     # Área útil
