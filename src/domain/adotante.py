@@ -49,6 +49,8 @@ class Adotante(Pessoa):
 
     @moradia.setter
     def moradia(self, nova_moradia: Moradia):
+        if not isinstance(nova_moradia, Moradia):
+            raise ValueError("A moradia deve ser uma instância de Moradia.")
         self._moradia = nova_moradia 
 
     # Área útil
@@ -93,7 +95,7 @@ class Adotante(Pessoa):
     # Métodos Especiais
     def __str__(self) -> str:
         return f"""
-ID: {self.__id}.
+ID: {self.id}.
 Nome: {self.nome}.
 Idade: {self.idade} anos.
 Telefone: ({self.telefone[:2]}) 9 {self.telefone[3:7]}-{self.telefone[7:]}.
@@ -105,7 +107,7 @@ Tem outros animais? {"Sim" if self.outrosAnimais else "Não"}.
 """
 
     def __repr__(self):
-        return f"{self.__id=}; {self.nome=}; {self.idade=}; {self.telefone=}; {self.moradia=}; {self.areaUtil=}; {self.experiencia=}; {self.criancasEmCasa=}; {self.outrosAnimais=}"
+        return f"{self.id=}; {self.nome=}; {self.idade=}; {self.telefone=}; {self.moradia=}; {self.areaUtil=}; {self.experiencia=}; {self.criancasEmCasa=}; {self.outrosAnimais=}"
 
     def __eq__(self, outroAdotante):
         return self.id == outroAdotante.id
