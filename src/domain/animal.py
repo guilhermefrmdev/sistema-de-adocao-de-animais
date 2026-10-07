@@ -10,7 +10,7 @@ class Animal():
         id: Identificação única do animal.
         nome: Nome do animal.
         idade: Idade do animal em meses.
-        raça: Raça do animal.
+        raca: Raça do animal.
         sexo: Sexo do animal.
         status: Status do animal.
         temperamento: Lista com os temperamentos do animal.
@@ -19,20 +19,20 @@ class Animal():
         porte: Porte do animal.
     """
 
-    def __init__(self, nome: str, idade: int, raça: str, sexo: str, status: StatusAnimal, temperamento: list, castrado: bool, porte: PorteAnimal, peso: int, dataEntrada: date, historico: list = [], id: int = None):
+    def __init__(self, nome: str, idade: int, raca: str, sexo: str, status: StatusAnimal, temperamento: list, castrado: bool, porte: PorteAnimal, peso: int, data_entrada: date, historico: list = [], id: int = None):
         super().__init__()
         self.id = id
         self.nome = nome
         self.idade = idade
-        self.raça = raça
+        self.raca = raca
         self.sexo = sexo
         self.status = status
         self.temperamento = temperamento
         self.castrado = castrado
-        self.historico = historico
+        self.historico= []
         self.porte = porte
         self.peso = peso
-        self.dataEntrada = dataEntrada
+        self.data_entrada = data_entrada
 
     # ID
     @property
@@ -79,7 +79,7 @@ class Animal():
     def raca(self, nova_raca: str):
         nova_raca = nova_raca.strip()
         if nova_raca == "":
-            raise ValueError("A raça não pode ser vazia.")
+            raise ValueError("A raca não pode ser vazia.")
 
         self._raca = nova_raca
 
@@ -138,19 +138,11 @@ class Animal():
         return self._historico
 
     @historico.setter
-    def historico(self, evento):
-    # Verificações de cada atributo
-        if evento['tipo'].strip() == "":
-            raise ValueError("O tipo do evento não pode ser vazio.")
-        if evento['nome'].strip() == "":
-            raise ValueError("O nome do evento não pode ser vazio.")
-        if evento['data'] is None:
-            raise ValueError("A data do evento não pode ser nula.")
-        if isinstance(evento['data'], date) is False:
-            raise ValueError("A data deve ser uma instancia de date.")
+    def historico(self, historico):
+        if not isinstance(historico, list):
+            raise ValueError("O histórico deve ser uma lista.")
 
-        # Adicionar um dicionário do evento na lista
-        self.historico.append({"tipo": evento['tipo'].strip(), "nome": evento['nome'].strip(), "data": evento['data']})
+        self._historico = historico
 
     # Porte
     @property
@@ -227,3 +219,27 @@ class Animal():
             self.status = status
         else:
             raise ValueError(f"Transição de status inválida: {self.status.name} → {status.name}")
+
+    def adicionar_historico(self, evento: dict):
+        # Validações
+        if not isinstance(evento, dict):
+            raise ValueError("O evento deve ser um dicionário.")
+
+        if evento["tipo"].strip() == "":
+            raise ValueError("O tipo do evento não pode ser vazio.")
+
+        if evento["nome"].strip() == "":
+            raise ValueError("O nome do evento não pode ser vazio.")
+
+        if evento["data"] is None:
+            raise ValueError("A data do evento não pode ser nula.")
+
+        if not isinstance(evento["data"], date):
+            raise ValueError("A data deve ser uma instância de date.")
+
+        # Adiciona no histórico
+        self._historico.append({
+            "tipo": evento["tipo"].strip(),
+            "nome": evento["nome"].strip(),
+            "data": evento["data"]
+        })

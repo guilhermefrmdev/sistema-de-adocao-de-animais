@@ -12,16 +12,15 @@ def cachorro():
     return Cachorro(
         nome="Rex",
         idade=36,
-        raça="Labrador",
+        raca="Labrador",
         sexo="M",
         status=StatusAnimal.DISPONIVEL,
         temperamento=["brincalhão", "dócil"],
         castrado=True,
         porte=PorteAnimal.GRANDE,
         peso=28,
-        dataEntrada=date(2026, 10, 1),
+        data_entrada=date(2026, 10, 1),
         necessidadePasseio=True,
-        historico=[],
         id=1,
     )
 
@@ -29,14 +28,14 @@ def cachorro():
 def test_criacao_cachorro(cachorro):
     assert cachorro.nome == "Rex"
     assert cachorro.idade == 36
-    assert cachorro.raça == "Labrador"
+    assert cachorro.raca == "Labrador"
     assert cachorro.sexo == "M"
     assert cachorro.status is StatusAnimal.DISPONIVEL
     assert cachorro.temperamento == ["brincalhão", "dócil"]
     assert cachorro.castrado is True
     assert cachorro.porte is PorteAnimal.GRANDE
     assert cachorro.peso == 28
-    assert cachorro.dataEntrada == date(2026, 10, 1)
+    assert cachorro.data_entrada == date(2026, 10, 1)
     assert cachorro.necessidadePasseio is True
     assert cachorro.historico == []
 
@@ -70,7 +69,7 @@ def test_porte_deve_ser_enum(cachorro):
 
 
 def test_adicionar_historico(cachorro):
-    cachorro.adicionarHistorico("Vacinação", "Antirrábica", date(2026, 10, 5))
+    cachorro.adicionar_historico({'tipo': "Vacinação", 'nome': "Antirrábica", 'data': date(2026, 10, 5)})
 
     assert len(cachorro.historico) == 1
     assert cachorro.historico[0] == {
@@ -88,3 +87,19 @@ def test_transicao_de_status(cachorro):
     cachorro.mudar_status(StatusAnimal.DISPONIVEL)
 
     assert cachorro.status is StatusAnimal.DISPONIVEL
+
+def test_nome_vazio(cachorro):
+    with pytest.raises(ValueError):
+        cachorro.nome = " "
+
+def test_mudar_raca(cachorro):
+    with pytest.raises(ValueError):
+        cachorro.raca = " "
+
+def test_sexo_invalido(cachorro):
+    with pytest.raises(ValueError):
+        cachorro.sexo = " "
+
+def test_temperamento_invalido(cachorro):
+    with pytest.raises(ValueError):
+        cachorro.temperamento = ""

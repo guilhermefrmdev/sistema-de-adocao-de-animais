@@ -14,8 +14,8 @@ class Cachorro(Animal, VacinavelMixin, AdestravelMixin):
     Attributes:
         necessidadePasseio: Se há necessidade de passeio.
     """
-    def __init__(self, nome: str, idade: int, raça: str, sexo: str, status: StatusAnimal, temperamento: list, castrado: bool, porte: PorteAnimal, peso: int, dataEntrada: date, necessidadePasseio: bool, historico: list = [], id: int = None):
-        super().__init__(nome, idade, raça, sexo, status, temperamento, castrado, porte, peso, dataEntrada, historico, id)
+    def __init__(self, nome: str, idade: int, raca: str, sexo: str, status: StatusAnimal, temperamento: list, castrado: bool, porte: PorteAnimal, peso: int, data_entrada: date, necessidadePasseio: bool, historico: list = [], id: int = None):
+        super().__init__(nome, idade, raca, sexo, status, temperamento, castrado, porte, peso, data_entrada, historico, id)
         self.necessidadePasseio = necessidadePasseio
 
     # Propriedades e verificações
@@ -33,12 +33,11 @@ class Cachorro(Animal, VacinavelMixin, AdestravelMixin):
 
     # Métodos especiais
     def __str__(self):
-        return f"""
-        Id: {self.__id}.
+        return f"""Id: {self.id}.
         Nome: {self.nome}
         Idade: {self.idade} meses.
         Sexo: {self.sexo}.
-        Raça: {self.raça}.
+        Raça: {self.raca}.
         Status: {self.status.name}.
         Temperamento: {', '.join(self.temperamento)}.
         Cadastrado: {"Sim" if self.castrado else "Não"}.
@@ -46,8 +45,8 @@ class Cachorro(Animal, VacinavelMixin, AdestravelMixin):
         Peso: {self.peso} kg.
         Necessidade de passeio: {"Sim" if self.necessidadePasseio else "Não"}.
         Histórico: {', '.join(self.historico) if self.historico != [] else "Nenhum histórico registrado."}.
-        Data de entrada: {self.dataEntrada.strftime("%d/%m/%Y")}.
+        Data de entrada: {self.data_entrada.strftime("%d/%m/%Y")}.
         """
 
     def __repr__(self):
-        return f"Cachorro(nome={self.nome}, idade={self.idade}, raça={self.raça}, sexo={self.sexo}, status={self.status.name}, temperamento={self.temperamento}, castrado={self.castrado}, porte={self.porte.name}, peso={self.peso}, necessidadePasseio={self.necessidadePasseio}, historico={self.historico}, dataEntrada={self.dataEntrada.strftime('%d/%m/%Y')})"
+        return f"Cachorro(id={self.id}, nome={self.nome}, idade={self.idade}, raca={self.raca}, sexo={self.sexo}, status={self.status.name}, temperamento={self.temperamento}, castrado={self.castrado}, porte={self.porte.name}, peso={self.peso}, necessidadePasseio={self.necessidadePasseio}, historico={self.historico}, data_entrada={self.data_entrada.strftime('%d/%m/%Y')})"

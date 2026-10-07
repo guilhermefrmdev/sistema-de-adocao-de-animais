@@ -84,3 +84,37 @@ def test_igualdade_por_id():
     )
 
     assert adotante1 == adotante2
+
+def test_str(adotante):
+    resultado = str(adotante)
+    print(str(adotante))
+    esperado = """
+ID: 1.
+Nome: Guilherme.
+Idade: 20 anos.
+Telefone: (88) 9 9999-9999.
+Tipo de moradia: casa.
+Área útil: 80,5 metros.
+Tem experiência com animais? Sim.
+Tem crianças em casa? Não.
+Tem outros animais? Sim.
+"""
+
+    assert resultado == esperado
+
+def test_repr(adotante):
+    resultado = repr(adotante)
+
+    esperado = (
+        "self.id=1; "
+        "self.nome='Guilherme'; "
+        "self.idade=20; "
+        "self.telefone='88999999999'; "
+        "self.moradia=<Moradia.CASA: 0>; "
+        "self.areaUtil=80.5; "
+        "self.experiencia=True; "
+        "self.criancasEmCasa=False; "
+        "self.outrosAnimais=True"
+    )
+
+    assert resultado == esperado
