@@ -220,3 +220,6 @@ __marimo__/
 # Backup do Diagramad e Classes
 docs/.$DiagramaDeClasses.drawio.bkp
 docs/.$Diagrama de Classes.drawio.bkp
+
+# Database
+database/database.db
