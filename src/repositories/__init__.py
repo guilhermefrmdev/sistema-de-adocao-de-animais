@@ -1,3 +1,0 @@
-# Cria o arquivo 'database/database.db' se ele não existir
-with open("database/database.db", "a", encoding="utf-8") as arquivo:
-    ...

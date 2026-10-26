@@ -1,0 +1,7 @@
+site_name: Sistema de Adoção de Animais
+repo_url: https://github.com/guilhermefrmdev/sistema-de-adocao-de-animais
+repo_name: guilhermefrmdev/sistema-de-adocao-de-animais
+
+theme:
+  name: material
+  language: pt-BR

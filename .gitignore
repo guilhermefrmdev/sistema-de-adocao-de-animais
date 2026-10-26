@@ -222,4 +222,4 @@ docs/.$DiagramaDeClasses.drawio.bkp
 docs/.$Diagrama de Classes.drawio.bkp
 
 # Database
-database/database.db
+src/sistema_de_adocao_de_animais/database/database.db

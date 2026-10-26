@@ -1,9 +1,10 @@
-from src.domain.pessoa import Pessoa
-from src.enums.moradias import Moradia
+from sistema_de_adocao_de_animais.domain.pessoa import Pessoa
+from sistema_de_adocao_de_animais.enums.moradias import Moradia
+
 
 class Adotante(Pessoa):
     """Representa um adotante registrado no sistema.
-    
+
     Estende `Pessoa` com características específicas dos adotantes.
 
     Attributes:
@@ -15,7 +16,18 @@ class Adotante(Pessoa):
         outrosAnimais : Se há outros animais em casa.
     """
 
-    def __init__(self, nome: str, idade: int, telefone: str, moradia: Moradia, areaUtil: float, experiencia: bool, criancasEmCasa: bool, outrosAnimais: bool, id = None):
+    def __init__(
+        self,
+        nome: str,
+        idade: int,
+        telefone: str,
+        moradia: Moradia,
+        areaUtil: float,
+        experiencia: bool,
+        criancasEmCasa: bool,
+        outrosAnimais: bool,
+        id=None,
+    ):
         super().__init__(nome, idade, id)
         self.telefone = telefone
         self.moradia = moradia
@@ -27,7 +39,7 @@ class Adotante(Pessoa):
     # Propriedades e verificações
 
     # Telefone
-    @property 
+    @property
     def telefone(self):
         return self._telefone
 
@@ -40,7 +52,7 @@ class Adotante(Pessoa):
         if len(novo_telefone) != 11:
             raise ValueError("O telefone deve ter 11 números")
 
-        self._telefone = novo_telefone 
+        self._telefone = novo_telefone
 
     # Moradia
     @property
@@ -51,7 +63,7 @@ class Adotante(Pessoa):
     def moradia(self, nova_moradia: Moradia):
         if not isinstance(nova_moradia, Moradia):
             raise ValueError("A moradia deve ser uma instância de Moradia.")
-        self._moradia = nova_moradia 
+        self._moradia = nova_moradia
 
     # Área útil
     @property
@@ -63,7 +75,7 @@ class Adotante(Pessoa):
         if nova_areaUtil == 0.00:
             raise ValueError("A área útil não pode ser zero.")
 
-        self._areaUtil = nova_areaUtil 
+        self._areaUtil = nova_areaUtil
 
     # Experiência
     @property
