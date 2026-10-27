@@ -12,7 +12,7 @@
 <br>
 
 ## Diagrama de Classes UML
-![Diagrama de Classes](docs/DiagramaDeClasses.png)
+![Diagrama de Classes](docs/assets/DiagramaDeClasses.png)
 
 ---
 <br>
