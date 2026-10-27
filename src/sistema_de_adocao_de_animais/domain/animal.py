@@ -32,7 +32,6 @@ class Animal:
         porte: PorteAnimal,
         peso: int,
         data_entrada: date,
-        historico: list = [],
         id: int = None,
     ):
         super().__init__()
