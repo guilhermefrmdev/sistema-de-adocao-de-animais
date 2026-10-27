@@ -1,14 +1,17 @@
 from datetime import datetime, timedelta
 
-from src.repositories.reserva_repository import ReservaRepository
-from src.domain.adotante import Adotante
-from src.domain.animal import Animal
+from sistema_de_adocao_de_animais.domain.adotante import Adotante
+from sistema_de_adocao_de_animais.domain.animal import Animal
+from sistema_de_adocao_de_animais.repositories.reserva_repository import (
+    ReservaRepository,
+)
+
 
 class Reserva(ReservaRepository):
     """Representa uma reserva no sistema.
 
     Faz a relação entre um `Adotante` e um `Animal`: o adotante reserva o animal.
-    
+
     Attributes:
         id : Identificação única da reserva.
         dataReserva : Data da reserva.
@@ -21,14 +24,27 @@ class Reserva(ReservaRepository):
 
     STATUS_VALIDOS = ["ATIVA", "EXPIRADA", "CONCLUIDA", "CANCELADA"]
 
-    def __init__(self, adotante: Adotante, animal: Animal, compatibilidade: float = 0.0, dataReserva: datetime = None, dataExpiracao: datetime = None, status: str = "ATIVA", id: int = None):
+    def __init__(
+        self,
+        adotante: Adotante,
+        animal: Animal,
+        compatibilidade: float = 0.0,
+        dataReserva: datetime = None,
+        dataExpiracao: datetime = None,
+        status: str = "ATIVA",
+        id: int = None,
+    ):
         self.id = id
         self.adotante = adotante
         self.animal = animal
         self.compatibilidade = compatibilidade
         self.dataReserva = dataReserva if dataReserva is not None else datetime.now()
         # Se não for informada, a reserva expira em 48h (valor padrão)
-        self.dataExpiracao = dataExpiracao if dataExpiracao is not None else self.dataReserva + timedelta(hours=48)
+        self.dataExpiracao = (
+            dataExpiracao
+            if dataExpiracao is not None
+            else self.dataReserva + timedelta(hours=48)
+        )
         self.status = status
 
     # Propriedades e verificações
@@ -108,7 +124,9 @@ class Reserva(ReservaRepository):
     def status(self, novo_status: str):
         novo_status = novo_status.strip().upper()
         if novo_status not in self.STATUS_VALIDOS:
-            raise ValueError(f"O status deve ser um destes: {', '.join(self.STATUS_VALIDOS)}.")
+            raise ValueError(
+                f"O status deve ser um destes: {', '.join(self.STATUS_VALIDOS)}."
+            )
         self._status = novo_status
 
     # Métodos

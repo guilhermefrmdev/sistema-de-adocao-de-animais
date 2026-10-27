@@ -1,25 +1,55 @@
 from datetime import date
 
-from src.enums.status_animal import StatusAnimal
-from src.enums.porte_animal import PorteAnimal
-from src.domain.animal import Animal
-from src.mixins.vacinavel_mixin import VacinavelMixin
-from src.mixins.adestravel_mixin import AdestravelMixin
+from sistema_de_adocao_de_animais.domain.animal import Animal
+from sistema_de_adocao_de_animais.enums.porte_animal import PorteAnimal
+from sistema_de_adocao_de_animais.enums.status_animal import StatusAnimal
+from sistema_de_adocao_de_animais.mixins.adestravel_mixin import AdestravelMixin
+from sistema_de_adocao_de_animais.mixins.vacinavel_mixin import VacinavelMixin
+
 
 class Cachorro(Animal, VacinavelMixin, AdestravelMixin):
     """Representa um cachorro registrado no sistema.
 
     Estende `Animal` com atributos específicos.
-    
+
     Attributes:
         necessidadePasseio: Se há necessidade de passeio.
     """
-    def __init__(self, nome: str, idade: int, raca: str, sexo: str, status: StatusAnimal, temperamento: list, castrado: bool, porte: PorteAnimal, peso: int, data_entrada: date, necessidadePasseio: bool, historico: list = [], id: int = None):
-        super().__init__(nome, idade, raca, sexo, status, temperamento, castrado, porte, peso, data_entrada, historico, id)
+
+    def __init__(
+        self,
+        nome: str,
+        idade: int,
+        raca: str,
+        sexo: str,
+        status: StatusAnimal,
+        temperamento: list,
+        castrado: bool,
+        porte: PorteAnimal,
+        peso: int,
+        data_entrada: date,
+        necessidadePasseio: bool,
+        historico: list = [],
+        id: int = None,
+    ):
+        super().__init__(
+            nome,
+            idade,
+            raca,
+            sexo,
+            status,
+            temperamento,
+            castrado,
+            porte,
+            peso,
+            data_entrada,
+            historico,
+            id,
+        )
         self.necessidadePasseio = necessidadePasseio
 
     # Propriedades e verificações
-    
+
     # Necessidade de passeio
     @property
     def necessidadePasseio(self):

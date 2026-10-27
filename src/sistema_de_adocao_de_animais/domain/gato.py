@@ -1,24 +1,53 @@
 from datetime import date
 
-from src.domain.animal import Animal
-from src.enums.status_animal import StatusAnimal
-from src.enums.porte_animal import PorteAnimal
-from src.enums.nivel_independencia import NivelIndependencia
-from src.enums.tipos_pelos import TiposPelos
-from src.mixins.vacinavel_mixin import VacinavelMixin
-from src.mixins.adestravel_mixin import AdestravelMixin
+from sistema_de_adocao_de_animais.domain.animal import Animal
+from sistema_de_adocao_de_animais.enums.nivel_independencia import NivelIndependencia
+from sistema_de_adocao_de_animais.enums.porte_animal import PorteAnimal
+from sistema_de_adocao_de_animais.enums.status_animal import StatusAnimal
+from sistema_de_adocao_de_animais.enums.tipos_pelos import TiposPelos
+from sistema_de_adocao_de_animais.mixins.adestravel_mixin import AdestravelMixin
+from sistema_de_adocao_de_animais.mixins.vacinavel_mixin import VacinavelMixin
+
 
 class Gato(Animal, VacinavelMixin, AdestravelMixin):
     """Representa um gato registrado no sistema.
 
     Estende `Animal` com atributos específicos.
-    
+
     Attributes:
         independencia : Indica o nível de independencia do gato.
         tipoPelo : Indica o tipo de pelo do gato.
     """
-    def __init__(self, nome: str, idade: int, raca: str, sexo: str, status: StatusAnimal, temperamento: list, castrado: bool, porte: PorteAnimal, peso: int, data_entrada: date, independencia: NivelIndependencia, tipoPelo: TiposPelos, id: int = None):
-        super().__init__(nome, idade, raca, sexo, status, temperamento, castrado, porte, peso, data_entrada, id)
+
+    def __init__(
+        self,
+        nome: str,
+        idade: int,
+        raca: str,
+        sexo: str,
+        status: StatusAnimal,
+        temperamento: list,
+        castrado: bool,
+        porte: PorteAnimal,
+        peso: int,
+        data_entrada: date,
+        independencia: NivelIndependencia,
+        tipoPelo: TiposPelos,
+        id: int = None,
+    ):
+        super().__init__(
+            nome,
+            idade,
+            raca,
+            sexo,
+            status,
+            temperamento,
+            castrado,
+            porte,
+            peso,
+            data_entrada,
+            id,
+        )
         self.independencia = independencia
         self.tipoPelo = tipoPelo
 
@@ -32,7 +61,9 @@ class Gato(Animal, VacinavelMixin, AdestravelMixin):
     @independencia.setter
     def independencia(self, nivel: NivelIndependencia):
         if not isinstance(nivel, NivelIndependencia):
-            raise ValueError("O nível de independência deve ser uma instância de NivelIndependencia.")
+            raise ValueError(
+                "O nível de independência deve ser uma instância de NivelIndependencia."
+            )
         self._independencia = nivel
 
     # Tipos de pelos

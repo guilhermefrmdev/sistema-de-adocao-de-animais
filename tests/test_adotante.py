@@ -1,7 +1,7 @@
-import pytest
+import pytest  # type: ignore
 
-from src.domain.adotante import Adotante
-from src.enums.moradias import Moradia
+from sistema_de_adocao_de_animais.domain.adotante import Adotante
+from sistema_de_adocao_de_animais.enums.moradias import Moradia
 
 
 @pytest.fixture
@@ -33,28 +33,29 @@ def test_criacao_adotante(adotante):
 @pytest.mark.parametrize("telefone", ["8899999999", "889999999999", "8899999999a", ""])
 def test_telefone_invalido(telefone):
     with pytest.raises(ValueError):
-        Adotante(
-            "Guilherme", 20, telefone, Moradia.CASA, 80.5, True, False, False
-        )
+        Adotante("Guilherme", 20, telefone, Moradia.CASA, 80.5, True, False, False)
 
 
 def test_moradia_deve_ser_enum():
     with pytest.raises((ValueError, AttributeError)):
-        Adotante(
-            "Guilherme", 20, "88999999999", "Casa", 80.5, True, False, False
-        )
+        Adotante("Guilherme", 20, "88999999999", "Casa", 80.5, True, False, False)
 
 
 def test_area_util_nao_pode_ser_zero():
     with pytest.raises(ValueError, match="área útil não pode ser zero"):
-        Adotante(
-            "Guilherme", 20, "88999999999", Moradia.CASA, 0.0, True, False, False
-        )
+        Adotante("Guilherme", 20, "88999999999", Moradia.CASA, 0.0, True, False, False)
 
 
 def test_nome_e_idade_herdados():
     adotante = Adotante(
-        "  Maria Silva  ", 25, "88999999999", Moradia.APARTAMENTO, 50.0, False, True, False
+        "  Maria Silva  ",
+        25,
+        "88999999999",
+        Moradia.APARTAMENTO,
+        50.0,
+        False,
+        True,
+        False,
     )
 
     assert adotante.nome == "Maria Silva"
@@ -85,6 +86,7 @@ def test_igualdade_por_id():
 
     assert adotante1 == adotante2
 
+
 def test_str(adotante):
     resultado = str(adotante)
     print(str(adotante))
@@ -101,6 +103,7 @@ Tem outros animais? Sim.
 """
 
     assert resultado == esperado
+
 
 def test_repr(adotante):
     resultado = repr(adotante)

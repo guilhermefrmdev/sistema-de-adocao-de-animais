@@ -1,14 +1,16 @@
 import sqlite3
 from pathlib import Path
 
-from src.enums.status_animal import StatusAnimal
+from sistema_de_adocao_de_animais.enums.status_animal import StatusAnimal
+
 
 class AnimalRepository:
     """
-        Interface que faz a conecção e salva dados no banco de dados de animais.
+    Interface que faz a conecção e salva dados no banco de dados de animais.
     """
+
     def __init__(self):
-        self.raiz = Path(__file__).resolve().parent.parent.parent
+        self.raiz = Path(__file__).resolve().parent.parent
         self.caminho_db = self.raiz / "database" / "database.db"
 
         with self.conectar() as connection:
@@ -45,36 +47,114 @@ class AnimalRepository:
         connection.execute("PRAGMA foreign_keys = ON")
         return connection
 
-    def cadastrarAnimal(self, nome: str, idade: int, raca: str, sexo: str, status: str, temperamento: str, porte: str, peso: float, data_entrada: str, historico: str):
+    def cadastrarAnimal(
+        self,
+        nome: str,
+        idade: int,
+        raca: str,
+        sexo: str,
+        status: str,
+        temperamento: str,
+        porte: str,
+        peso: float,
+        data_entrada: str,
+        historico: str,
+    ):
         with self.conectar() as connection:
             cursor = connection.cursor()
 
-            cursor.execute("""INSERT INTO animais (nome, idade, raca, sexo, status, temperamento, porte, peso, data_entrada, historico)
+            cursor.execute(
+                """INSERT INTO animais (nome, idade, raca, sexo, status, temperamento, porte, peso, data_entrada, historico)
                 VALUES (?,?,?,?,?,?,?,?,?,?)
             """,
-            (nome, idade, raca, sexo, status, temperamento, porte, peso, data_entrada, historico))
+                (
+                    nome,
+                    idade,
+                    raca,
+                    sexo,
+                    status,
+                    temperamento,
+                    porte,
+                    peso,
+                    data_entrada,
+                    historico,
+                ),
+            )
 
             return cursor.lastrowid
-        
-    def cadastrarCachorro(self, nome: str, idade: int, raca: str, sexo: str, status: str, temperamento: str, porte: str, peso: float, data_entrada: str, historico: str, necessidadePasseio: bool):
-        animal_id = self.cadastrarAnimal(nome, idade, raca, sexo, status, temperamento, porte, peso, data_entrada, historico)
+
+    def cadastrarCachorro(
+        self,
+        nome: str,
+        idade: int,
+        raca: str,
+        sexo: str,
+        status: str,
+        temperamento: str,
+        porte: str,
+        peso: float,
+        data_entrada: str,
+        historico: str,
+        necessidadePasseio: bool,
+    ):
+        animal_id = self.cadastrarAnimal(
+            nome,
+            idade,
+            raca,
+            sexo,
+            status,
+            temperamento,
+            porte,
+            peso,
+            data_entrada,
+            historico,
+        )
         with self.conectar() as connection:
             cursor = connection.cursor()
 
-            cursor.execute("""INSERT INTO cachorros (animal_id, necessidade_passeio)
+            cursor.execute(
+                """INSERT INTO cachorros (animal_id, necessidade_passeio)
                 VALUES (?,?)
             """,
-            (animal_id, int(necessidadePasseio)))
+                (animal_id, int(necessidadePasseio)),
+            )
 
-    def cadastrarGato(self, nome: str, idade: int, raca: str, sexo: str, status: str, temperamento: str, porte: str, peso: float, data_entrada: str, historico: str, independencia: str, tipoPelo: str):
-        animal_id = self.cadastrarAnimal(nome, idade, raca, sexo, status, temperamento, porte, peso, data_entrada, historico)
+    def cadastrarGato(
+        self,
+        nome: str,
+        idade: int,
+        raca: str,
+        sexo: str,
+        status: str,
+        temperamento: str,
+        porte: str,
+        peso: float,
+        data_entrada: str,
+        historico: str,
+        independencia: str,
+        tipoPelo: str,
+    ):
+        animal_id = self.cadastrarAnimal(
+            nome,
+            idade,
+            raca,
+            sexo,
+            status,
+            temperamento,
+            porte,
+            peso,
+            data_entrada,
+            historico,
+        )
         with self.conectar() as connection:
             cursor = connection.cursor()
 
-            cursor.execute("""INSERT INTO gatos (animal_id, independencia, tipo_pelo)
+            cursor.execute(
+                """INSERT INTO gatos (animal_id, independencia, tipo_pelo)
                 VALUES (?,?,?)
             """,
-            (animal_id, independencia, tipoPelo))
+                (animal_id, independencia, tipoPelo),
+            )
 
     def excluirAnimal(self, id: int):
         with self.conectar() as connection:
@@ -84,14 +164,20 @@ class AnimalRepository:
 
         # Gera um relatório simples com os animais disponíveis e adotados.
         def relatorioDisponiveisAdotados(self) -> str:
-            grupos = [("DISPONÍVEIS", StatusAnimal.DISPONIVEL.name), ("ADOTADOS", StatusAnimal.ADOTADO.name)]
+            grupos = [
+                ("DISPONÍVEIS", StatusAnimal.DISPONIVEL.name),
+                ("ADOTADOS", StatusAnimal.ADOTADO.name),
+            ]
             linhas = ["===== RELATÓRIO DE ANIMAIS ====="]
 
             with self.conectar() as connection:
                 cursor = connection.cursor()
 
                 for titulo, status in grupos:
-                    cursor.execute("SELECT id, nome, raca, porte FROM animais WHERE status = ? ORDER BY nome", (status,))
+                    cursor.execute(
+                        "SELECT id, nome, raca, porte FROM animais WHERE status = ? ORDER BY nome",
+                        (status,),
+                    )
                     animais = cursor.fetchall()
 
                     linhas.append(f"\n--- {titulo} ({len(animais)}) ---")

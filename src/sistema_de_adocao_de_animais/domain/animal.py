@@ -1,11 +1,12 @@
 from datetime import date
 
-from src.enums.status_animal import StatusAnimal
-from src.enums.porte_animal import PorteAnimal
+from sistema_de_adocao_de_animais.enums.porte_animal import PorteAnimal
+from sistema_de_adocao_de_animais.enums.status_animal import StatusAnimal
 
-class Animal():
+
+class Animal:
     """Representa um animal registrado no sistema.
-    
+
     Attributes:
         id: Identificação única do animal.
         nome: Nome do animal.
@@ -19,7 +20,20 @@ class Animal():
         porte: Porte do animal.
     """
 
-    def __init__(self, nome: str, idade: int, raca: str, sexo: str, status: StatusAnimal, temperamento: list, castrado: bool, porte: PorteAnimal, peso: int, data_entrada: date, historico: list = [], id: int = None):
+    def __init__(
+        self,
+        nome: str,
+        idade: int,
+        raca: str,
+        sexo: str,
+        status: StatusAnimal,
+        temperamento: list,
+        castrado: bool,
+        porte: PorteAnimal,
+        peso: int,
+        data_entrada: date,
+        id: int = None,
+    ):
         super().__init__()
         self.id = id
         self.nome = nome
@@ -29,7 +43,7 @@ class Animal():
         self.status = status
         self.temperamento = temperamento
         self.castrado = castrado
-        self.historico= []
+        self.historico = []
         self.porte = porte
         self.peso = peso
         self.data_entrada = data_entrada
@@ -45,15 +59,15 @@ class Animal():
 
     # Nome
     @property
-    def nome(self): 
+    def nome(self):
         return self._nome
 
     @nome.setter
     def nome(self, novo_nome: str):
-        if not novo_nome.replace(" ", "").isalpha(): # Verificação somente letras
+        if not novo_nome.replace(" ", "").isalpha():  # Verificação somente letras
             raise ValueError("O nome deve conter apenas letras.")
-            
-        if novo_nome.strip() == "": # Verificação nome vazio
+
+        if novo_nome.strip() == "":  # Verificação nome vazio
             raise ValueError("O nome não pode ser vazio.")
 
         self._nome = novo_nome.strip()
@@ -66,7 +80,9 @@ class Animal():
     @idade.setter
     def idade(self, nova_idade: int):
         if nova_idade < 1:
-            raise ValueError("A idade não pode ser menor que um.") # Verificação Maioridade
+            raise ValueError(
+                "A idade não pode ser menor que um."
+            )  # Verificação Maioridade
 
         self._idade = nova_idade
 
@@ -74,7 +90,7 @@ class Animal():
     @property
     def raca(self):
         return self._raca
-    
+
     @raca.setter
     def raca(self, nova_raca: str):
         nova_raca = nova_raca.strip()
@@ -198,27 +214,39 @@ class Animal():
             yield evento
 
     # Mudança de Status: Transições de estado (permitidas):
-                        # DISPONIVEL → RESERVADO → ADOTADO
-                        # DISPONIVEL → INADOTAVEL
-                        # ADOTADO → DEVOLVIDO → (QUARENTENA|DISPONIVEL|INADOTAVEL)
-                        # QUARENTENA → (DISPONIVEL|INADOTAVEL)
+    # DISPONIVEL → RESERVADO → ADOTADO
+    # DISPONIVEL → INADOTAVEL
+    # ADOTADO → DEVOLVIDO → (QUARENTENA|DISPONIVEL|INADOTAVEL)
+    # QUARENTENA → (DISPONIVEL|INADOTAVEL)
     def mudar_status(self, status: StatusAnimal):
         if not isinstance(status, StatusAnimal):
             raise ValueError("O status deve ser uma instância de StatusAnimal.")
 
         # Verificar se a transição de status é válida
-        if self.status == StatusAnimal.DISPONIVEL and status in [StatusAnimal.RESERVADO, StatusAnimal.INADOTAVEL]:
+        if self.status == StatusAnimal.DISPONIVEL and status in [
+            StatusAnimal.RESERVADO,
+            StatusAnimal.INADOTAVEL,
+        ]:
             self.status = status
         elif self.status == StatusAnimal.RESERVADO and status == StatusAnimal.ADOTADO:
             self.status = status
         elif self.status == StatusAnimal.ADOTADO and status in [StatusAnimal.DEVOLVIDO]:
             self.status = status
-        elif self.status == StatusAnimal.DEVOLVIDO and status in [StatusAnimal.QUARENTENA, StatusAnimal.DISPONIVEL, StatusAnimal.INADOTAVEL]:
+        elif self.status == StatusAnimal.DEVOLVIDO and status in [
+            StatusAnimal.QUARENTENA,
+            StatusAnimal.DISPONIVEL,
+            StatusAnimal.INADOTAVEL,
+        ]:
             self.status = status
-        elif self.status == StatusAnimal.QUARENTENA and status in [StatusAnimal.DISPONIVEL, StatusAnimal.INADOTAVEL]:
+        elif self.status == StatusAnimal.QUARENTENA and status in [
+            StatusAnimal.DISPONIVEL,
+            StatusAnimal.INADOTAVEL,
+        ]:
             self.status = status
         else:
-            raise ValueError(f"Transição de status inválida: {self.status.name} → {status.name}")
+            raise ValueError(
+                f"Transição de status inválida: {self.status.name} → {status.name}"
+            )
 
     def adicionar_historico(self, evento: dict):
         # Validações
@@ -238,8 +266,10 @@ class Animal():
             raise ValueError("A data deve ser uma instância de date.")
 
         # Adiciona no histórico
-        self._historico.append({
-            "tipo": evento["tipo"].strip(),
-            "nome": evento["nome"].strip(),
-            "data": evento["data"]
-        })
+        self._historico.append(
+            {
+                "tipo": evento["tipo"].strip(),
+                "nome": evento["nome"].strip(),
+                "data": evento["data"],
+            }
+        )

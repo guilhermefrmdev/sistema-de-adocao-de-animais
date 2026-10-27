@@ -8,7 +8,7 @@ class PessoaRepository:
     """
 
     def __init__(self):
-        self.raiz = Path(__file__).resolve().parent.parent.parent
+        self.raiz = Path(__file__).resolve().parent.parent
         self.caminho_db = self.raiz / "database" / "database.db"
 
         # Cria as tabelas caso ainda não existam.
@@ -16,17 +16,14 @@ class PessoaRepository:
             cursor = connection.cursor()
 
             cursor.execute("PRAGMA foreign_keys = ON")
-            cursor.execute(
-                """
+            cursor.execute("""
                 CREATE TABLE IF NOT EXISTS pessoas (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     nome TEXT NOT NULL,
                     idade INTEGER NOT NULL
                 )
-                """
-            )
-            cursor.execute(
-                """
+                """)
+            cursor.execute("""
                 CREATE TABLE IF NOT EXISTS adotantes (
                     pessoa_id INTEGER PRIMARY KEY,
                     telefone TEXT NOT NULL,
@@ -42,8 +39,7 @@ class PessoaRepository:
                         REFERENCES pessoas(id)
                         ON DELETE CASCADE
                 )
-                """
-            )
+                """)
 
     # Conexão com o banco de dados
     def conectar(self):
@@ -62,7 +58,17 @@ class PessoaRepository:
             return cursor.lastrowid
 
     # Cadastra adotante no banco e retorna o ID
-    def cadastrarAdotante(self, nome: str, idade: int, telefone: str, moradia: str, areaUtil: float, experiencia: bool, criancasEmCasa: bool, outrosAnimais: bool) -> int:
+    def cadastrarAdotante(
+        self,
+        nome: str,
+        idade: int,
+        telefone: str,
+        moradia: str,
+        areaUtil: float,
+        experiencia: bool,
+        criancasEmCasa: bool,
+        outrosAnimais: bool,
+    ) -> int:
 
         pessoa_id = self.cadastrarPessoa(nome, idade)
 
@@ -100,5 +106,6 @@ class PessoaRepository:
         with self.conectar() as connection:
             cursor = connection.cursor()
             cursor.execute("DELETE FROM pessoas WHERE id = ?", (id,))
+
 
 pessoa = PessoaRepository()

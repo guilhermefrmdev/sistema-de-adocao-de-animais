@@ -1,0 +1,49 @@
+[project]
+name = "sistema-de-adocao-de-animais"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "guilhermefrmdev",email = "guilhermefrmdev@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14.7,<4.0"
+dependencies = [
+    "typer (>=0.27.3,<0.28.0)"
+]
+
+[tool.poetry]
+packages = [
+    { include = "sistema_de_adocao_de_animais", from = "src" }
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.1.1,<10.0.0)",
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "isort (>=9.0.2,<10.0.0)",
+    "taskipy (>=1.14.1,<2.0.0)",
+    "black (>=26.10.1,<27.0.0)"
+]
+doc = [
+    "mkdocs-material (>=9.8.0,<10.0.0)",
+    "mkdocstrings (>=1.0.8,<2.0.0)",
+    "mkdocstrings-python (>=2.0.10,<3.0.0)"
+]
+
+[tool.pytest.ini_options]
+pythonpath = "./tests"
+addopts = "--doctest-modules"
+
+[tool.isort]
+profile = "black"
+
+[tool.taskipy.tasks]
+lint = "black --check --diff . && isort --check --diff ."
+docs = "mkdocs serve"
+pre_test = "task lint"
+test = "pytest -s -x --cov=sistema_de_adocao_de_animais -vv"
+post_test = "coverage html"

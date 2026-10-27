@@ -1,10 +1,10 @@
 from datetime import date
 
-import pytest
+import pytest  # type: ignore
 
-from src.domain.cachorro import Cachorro
-from src.enums.porte_animal import PorteAnimal
-from src.enums.status_animal import StatusAnimal
+from sistema_de_adocao_de_animais.domain.cachorro import Cachorro
+from sistema_de_adocao_de_animais.enums.porte_animal import PorteAnimal
+from sistema_de_adocao_de_animais.enums.status_animal import StatusAnimal
 
 
 @pytest.fixture
@@ -69,7 +69,9 @@ def test_porte_deve_ser_enum(cachorro):
 
 
 def test_adicionar_historico(cachorro):
-    cachorro.adicionar_historico({'tipo': "Vacinação", 'nome': "Antirrábica", 'data': date(2026, 10, 5)})
+    cachorro.adicionar_historico(
+        {"tipo": "Vacinação", "nome": "Antirrábica", "data": date(2026, 10, 5)}
+    )
 
     assert len(cachorro.historico) == 1
     assert cachorro.historico[0] == {
@@ -88,17 +90,21 @@ def test_transicao_de_status(cachorro):
 
     assert cachorro.status is StatusAnimal.DISPONIVEL
 
+
 def test_nome_vazio(cachorro):
     with pytest.raises(ValueError):
         cachorro.nome = " "
+
 
 def test_mudar_raca(cachorro):
     with pytest.raises(ValueError):
         cachorro.raca = " "
 
+
 def test_sexo_invalido(cachorro):
     with pytest.raises(ValueError):
         cachorro.sexo = " "
+
 
 def test_temperamento_invalido(cachorro):
     with pytest.raises(ValueError):

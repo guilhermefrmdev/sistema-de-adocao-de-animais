@@ -1,12 +1,12 @@
 from datetime import date
 
-import pytest
+import pytest  # type: ignore
 
-from src.domain.gato import Gato
-from src.enums.nivel_independencia import NivelIndependencia
-from src.enums.porte_animal import PorteAnimal
-from src.enums.status_animal import StatusAnimal
-from src.enums.tipos_pelos import TiposPelos
+from sistema_de_adocao_de_animais.domain.gato import Gato
+from sistema_de_adocao_de_animais.enums.nivel_independencia import NivelIndependencia
+from sistema_de_adocao_de_animais.enums.porte_animal import PorteAnimal
+from sistema_de_adocao_de_animais.enums.status_animal import StatusAnimal
+from sistema_de_adocao_de_animais.enums.tipos_pelos import TiposPelos
 
 
 @pytest.fixture
@@ -83,8 +83,11 @@ def test_mudanca_de_status(gato):
 
     assert gato.status is StatusAnimal.ADOTADO
 
+
 def test_adicionar_historico(gato):
-    gato.adicionar_historico({'tipo': "Vacinação", 'nome': "Antirrábica", 'data': date(2026, 10, 5)})
+    gato.adicionar_historico(
+        {"tipo": "Vacinação", "nome": "Antirrábica", "data": date(2026, 10, 5)}
+    )
 
     assert len(gato.historico) == 1
     assert gato.historico[0] == {
@@ -92,6 +95,7 @@ def test_adicionar_historico(gato):
         "nome": "Antirrábica",
         "data": date(2026, 10, 5),
     }
+
 
 def test_equalidade_incorreta(gato):
     assert gato.__eq__("") == False
