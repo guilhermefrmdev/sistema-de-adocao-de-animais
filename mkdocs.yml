@@ -5,3 +5,12 @@ repo_name: guilhermefrmdev/sistema-de-adocao-de-animais
 theme:
   name: material
   language: pt-BR
+
+markdown_extensions:
+  - attr_list
+
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        paths: [src]
