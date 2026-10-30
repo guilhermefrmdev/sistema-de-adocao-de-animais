@@ -33,7 +33,7 @@ class Animal:
         porte: PorteAnimal,
         peso: int,
         data_entrada: date,
-        historico: list = [],
+        historico: list = None,
         id: int = None,
     ):
         super().__init__()
@@ -45,7 +45,7 @@ class Animal:
         self.status = status
         self.temperamento = temperamento
         self.castrado = castrado
-        self.historico = historico
+        self.historico = self.historico = historico if historico is not None else []
         self.porte = porte
         self.peso = peso
         self.data_entrada = data_entrada
