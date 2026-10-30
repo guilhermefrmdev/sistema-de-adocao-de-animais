@@ -13,7 +13,18 @@ class Cachorro(Animal, VacinavelMixin, AdestravelMixin):
     Estende `Animal` com atributos específicos.
 
     Attributes:
-        necessidadePasseio: Se há necessidade de passeio.
+        id (int): Identificação única do animal.
+        nome (str): Nome do animal.
+        idade (str): Idade do animal em meses.
+        raca (str): Raça do animal.
+        sexo (str): Sexo do animal.
+        status (StatusAnimal): Status do animal.
+        temperamento (list of str): Lista com os temperamentos do animal.
+        castrado (bool): Se o animal é castrado.
+        historico (list of dict, optional): Histórico do animal.
+        porte (PorteAnimal): Porte do animal.
+        data_entrada (date): Data de entrada do animal.
+        necessidadePasseio (bool): Se há necessidade de passeio.
     """
 
     def __init__(

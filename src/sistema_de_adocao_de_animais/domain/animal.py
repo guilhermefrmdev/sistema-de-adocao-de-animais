@@ -8,16 +8,17 @@ class Animal:
     """Representa um animal registrado no sistema.
 
     Attributes:
-        id: Identificação única do animal.
-        nome: Nome do animal.
-        idade: Idade do animal em meses.
-        raca: Raça do animal.
-        sexo: Sexo do animal.
-        status: Status do animal.
-        temperamento: Lista com os temperamentos do animal.
-        castrado: Se o animal é castrado.
-        historico: Histórico do animal.
-        porte: Porte do animal.
+        id (int): Identificação única do animal.
+        nome (str): Nome do animal.
+        idade (str): Idade do animal em meses.
+        raca (str): Raça do animal.
+        sexo (str): Sexo do animal.
+        status (StatusAnimal): Status do animal.
+        temperamento (list of str): Lista com os temperamentos do animal.
+        castrado (bool): Se o animal é castrado.
+        historico (list of dict, optional): Histórico do animal.
+        porte (PorteAnimal): Porte do animal.
+        data_entrada (date): Data de entrada do animal.
     """
 
     def __init__(
@@ -32,6 +33,7 @@ class Animal:
         porte: PorteAnimal,
         peso: int,
         data_entrada: date,
+        historico: list = [],
         id: int = None,
     ):
         super().__init__()
@@ -43,7 +45,7 @@ class Animal:
         self.status = status
         self.temperamento = temperamento
         self.castrado = castrado
-        self.historico = []
+        self.historico = historico
         self.porte = porte
         self.peso = peso
         self.data_entrada = data_entrada
@@ -219,8 +221,24 @@ class Animal:
     # ADOTADO → DEVOLVIDO → (QUARENTENA|DISPONIVEL|INADOTAVEL)
     # QUARENTENA → (DISPONIVEL|INADOTAVEL)
     def mudar_status(self, status: StatusAnimal):
+        """Função que muda o status do animal para um dos status pré-existentes.
+
+        Args:
+            status (StatusAnimal): Status para que será mudado o animal.
+
+        Raises:
+            TypeError: Disparado quando o status não é instância de StatusAnimal.
+            ValueError: Disparado se o status não obedecer a regra de mudança.
+
+        Note:
+            Transições de estado (permitidas):\n
+            `DISPONIVEL -> RESERVADO -> ADOTADO`\n
+            `DISPONIVEL -> INADOTAVEL`\n
+            `ADOTADO -> DEVOLVIDO -> (QUARENTENA|DISPONIVEL|INADOTAVEL)`\n
+            `QUARENTENA -> (DISPONIVEL|INADOTAVEL)`\n
+        """
         if not isinstance(status, StatusAnimal):
-            raise ValueError("O status deve ser uma instância de StatusAnimal.")
+            raise TypeError("O status deve ser uma instância de StatusAnimal.")
 
         # Verificar se a transição de status é válida
         if self.status == StatusAnimal.DISPONIVEL and status in [
@@ -249,9 +267,22 @@ class Animal:
             )
 
     def adicionar_historico(self, evento: dict):
+        """Função que adiciona um evendo no histórico do animal.
+
+        Args:
+            evento (dict): Dicionário com o tipo, nome e data do evento.
+
+        Raises:
+            TypeError: Dispara se o evento não for um dicionário ou se a data não for um objeto date.
+            ValueError: Dispara se um dos campos de texto do dicionário for vazio.
+
+        Note:
+            O dicionário evendo aceito nessa função é esse padrão: `{ "tipo": "xxx", "nome": "xxxxx", "data": date() }`
+        """
+
         # Validações
         if not isinstance(evento, dict):
-            raise ValueError("O evento deve ser um dicionário.")
+            raise TypeError("O evento deve ser um dicionário.")
 
         if evento["tipo"].strip() == "":
             raise ValueError("O tipo do evento não pode ser vazio.")
@@ -263,7 +294,7 @@ class Animal:
             raise ValueError("A data do evento não pode ser nula.")
 
         if not isinstance(evento["data"], date):
-            raise ValueError("A data deve ser uma instância de date.")
+            raise TypeError("A data deve ser uma instância de date.")
 
         # Adiciona no histórico
         self._historico.append(

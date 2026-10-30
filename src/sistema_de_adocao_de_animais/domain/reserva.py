@@ -13,13 +13,13 @@ class Reserva(ReservaRepository):
     Faz a relação entre um `Adotante` e um `Animal`: o adotante reserva o animal.
 
     Attributes:
-        id : Identificação única da reserva.
-        dataReserva : Data da reserva.
-        dataExpiracao : Data de expiração da reserva.
-        adotante : O adotante relacionado.
-        animal : O animal relacionado.
-        compatibilidade : A pontuação de compatibilidade
-        status : Status da reserva.
+        id (int): Identificação única da reserva.
+        dataReserva (datetime): Data da reserva.
+        dataExpiracao (datetime): Data de expiração da reserva.
+        adotante (Adotante): O adotante relacionado.
+        animal (Animal): O animal relacionado.
+        compatibilidade (float): A pontuação de compatibilidade
+        status (str): Status da reserva.
     """
 
     STATUS_VALIDOS = ["ATIVA", "EXPIRADA", "CONCLUIDA", "CANCELADA"]
@@ -128,10 +128,6 @@ class Reserva(ReservaRepository):
                 f"O status deve ser um destes: {', '.join(self.STATUS_VALIDOS)}."
             )
         self._status = novo_status
-
-    # Métodos
-    def alterarStatus(self, novo_status: str):
-        self.status = novo_status
 
     # Métodos Especiais
     def __str__(self) -> str:
