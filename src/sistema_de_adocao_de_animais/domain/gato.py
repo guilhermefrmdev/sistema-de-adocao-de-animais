@@ -15,8 +15,19 @@ class Gato(Animal, VacinavelMixin, AdestravelMixin):
     Estende `Animal` com atributos específicos.
 
     Attributes:
-        independencia : Indica o nível de independencia do gato.
-        tipoPelo : Indica o tipo de pelo do gato.
+        id (int): Identificação única do animal.
+        nome (str): Nome do animal.
+        idade (str): Idade do animal em meses.
+        raca (str): Raça do animal.
+        sexo (str): Sexo do animal.
+        status (StatusAnimal): Status do animal.
+        temperamento (list of str): Lista com os temperamentos do animal.
+        castrado (bool): Se o animal é castrado.
+        historico (list of dict, optional): Histórico do animal.
+        porte (PorteAnimal): Porte do animal.
+        data_entrada (date): Data de entrada do animal.
+        independencia (NivelIndependencia): Indica o nível de independencia do gato.
+        tipoPelo (TiposPelos): Indica o tipo de pelo do gato.
     """
 
     def __init__(
@@ -33,20 +44,22 @@ class Gato(Animal, VacinavelMixin, AdestravelMixin):
         data_entrada: date,
         independencia: NivelIndependencia,
         tipoPelo: TiposPelos,
+        historico: list = [],
         id: int = None,
     ):
         super().__init__(
-            nome,
-            idade,
-            raca,
-            sexo,
-            status,
-            temperamento,
-            castrado,
-            porte,
-            peso,
-            data_entrada,
-            id,
+            nome=nome,
+            idade=idade,
+            raca=raca,
+            sexo=sexo,
+            status=status,
+            temperamento=temperamento,
+            castrado=castrado,
+            porte=porte,
+            peso=peso,
+            data_entrada=data_entrada,
+            historico=historico,
+            id=id,
         )
         self.independencia = independencia
         self.tipoPelo = tipoPelo

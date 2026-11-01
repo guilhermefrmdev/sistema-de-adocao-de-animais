@@ -2,7 +2,7 @@ from sistema_de_adocao_de_animais.repositories.pessoa_repository import PessoaRe
 
 
 class Pessoa(PessoaRepository):
-    """Representa uma pessoa no sistema
+    """Representa uma pessoa no sistema.
 
     Attributes:
         id : Identificação única da pessoa.
