@@ -27,12 +27,12 @@ class Animal:
         idade: int,
         raca: str,
         sexo: str,
-        status: StatusAnimal,
         temperamento: list,
         castrado: bool,
         porte: PorteAnimal,
         peso: int,
         data_entrada: date,
+        status: StatusAnimal = StatusAnimal.DISPONIVEL,
         historico: list = None,
         id: int = None,
     ):

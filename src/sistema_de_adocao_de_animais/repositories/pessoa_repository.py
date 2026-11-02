@@ -106,6 +106,3 @@ class PessoaRepository:
         with self.conectar() as connection:
             cursor = connection.cursor()
             cursor.execute("DELETE FROM pessoas WHERE id = ?", (id,))
-
-
-pessoa = PessoaRepository()
