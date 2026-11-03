@@ -78,7 +78,7 @@ class PessoaRepository:
             cursor.execute(
                 """
                 INSERT INTO adotantes (
-                    id,
+                    pessoa_id,
                     telefone,
                     moradia,
                     areaUtil,
@@ -89,7 +89,7 @@ class PessoaRepository:
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
-                    id,
+                    pessoa_id,
                     telefone,
                     moradia,
                     areaUtil,
