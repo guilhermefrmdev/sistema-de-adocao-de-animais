@@ -44,18 +44,18 @@ class Cachorro(Animal, VacinavelMixin, AdestravelMixin):
         id: int = None,
     ):
         super().__init__(
-            nome = nome,
-            idade = idade,
-            raca = raca,
-            sexo = sexo,
-            status = status,
-            temperamento = temperamento,
-            castrado = castrado,
-            porte = porte,
-            peso = peso,
-            data_entrada = data_entrada,
-            historico = historico,
-            id = id,
+            nome=nome,
+            idade=idade,
+            raca=raca,
+            sexo=sexo,
+            status=status,
+            temperamento=temperamento,
+            castrado=castrado,
+            porte=porte,
+            peso=peso,
+            data_entrada=data_entrada,
+            historico=historico,
+            id=id,
         )
         self.necessidadePasseio = necessidadePasseio
 
