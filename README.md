@@ -113,3 +113,21 @@ python main.py adotante excluir 1 --sim
 ```
 
 O telefone deve conter 11 dígitos numéricos (DDD + número). A elegibilidade usa as políticas de `settings.json`; a compatibilidade apresenta a pontuação de 0 a 100 e as notas dos critérios ponderados. As listagens e os resultados são estilizados com Rich.
+
+
+## CLI de reservas (Typer + Rich)
+
+O grupo `reserva` valida a elegibilidade do adotante e calcula a compatibilidade antes de criar uma reserva. A duração é lida de `settings.json` (48 horas por padrão). Uma reserva ativa muda o animal para `RESERVADO`; o cancelamento ou a expiração libera o animal novamente.
+
+```bash
+python main.py reserva --help
+python main.py reserva criar 1 1
+python main.py reserva listar
+python main.py reserva listar --status ATIVA
+python main.py reserva listar --animal 1 --adotante 1
+python main.py reserva cancelar 1
+python main.py reserva rodar-expiracao
+python main.py reserva rodar-expiracao --agora "2026-11-06 14:30"
+```
+
+A expiração registra o evento no histórico do animal e informa o próximo adotante na fila, quando existe uma fila cadastrada para ele.
