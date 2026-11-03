@@ -9,6 +9,7 @@ from sistema_de_adocao_de_animais.cli.commands.animal import app as animal_app
 from sistema_de_adocao_de_animais.cli.commands.fila import app as fila_app
 from sistema_de_adocao_de_animais.cli.commands.relatorio import app as relatorio_app
 from sistema_de_adocao_de_animais.cli.commands.reserva import app as reserva_app
+from sistema_de_adocao_de_animais.cli.commands.sistema import config_app, seed
 from sistema_de_adocao_de_animais.cli.console import console
 
 app = typer.Typer(
@@ -23,6 +24,8 @@ app.add_typer(reserva_app, name="reserva")
 app.add_typer(adocao_app, name="adocao")
 app.add_typer(fila_app, name="fila")
 app.add_typer(relatorio_app, name="relatorio")
+app.add_typer(config_app, name="config")
+app.command("seed")(seed)
 
 
 @app.callback(invoke_without_command=True)
@@ -31,7 +34,7 @@ def inicio(ctx: typer.Context) -> None:
     if ctx.invoked_subcommand is None:
         console.print(
             Panel(
-                "[bold]Sistema de Adoção de Animais[/bold]\nGerencie animais, adotantes, reservas e o processo de adoção.\n\nUse [cyan]python main.py --help[/cyan] para ver os comandos.",
+                "[bold]Sistema de Adoção de Animais[/bold]\nGerencie animais, adotantes, reservas, fila de espera e o processo de adoção.\n\nUse [cyan]python main.py --help[/cyan] para ver os comandos.",
                 title="Bem-vindo",
                 border_style="blue",
             )
