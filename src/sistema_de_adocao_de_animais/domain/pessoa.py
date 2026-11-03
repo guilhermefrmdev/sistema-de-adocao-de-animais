@@ -1,4 +1,5 @@
 from sistema_de_adocao_de_animais.repositories.pessoa_repository import PessoaRepository
+from sistema_de_adocao_de_animais.settings import Settings, load_settings
 
 
 class Pessoa(PessoaRepository):
@@ -48,7 +49,10 @@ class Pessoa(PessoaRepository):
 
     @idade.setter
     def idade(self, nova_idade: int):
-        if nova_idade < 18:
-            raise ValueError("Não pode ser menor de idade.")  # Verificação Maioridade
+        settings = load_settings()
+        if nova_idade < settings.idade_minima_adotante:
+            raise ValueError(
+                f"Não pode ser menor de {settings.idade_minima_adotante} anos de idade."
+            )  # Verificação Idade
 
         self._idade = nova_idade
