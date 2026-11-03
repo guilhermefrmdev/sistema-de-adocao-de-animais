@@ -14,9 +14,9 @@ class Adotante(Pessoa):
         telefone (str): Telefone do adotante.
         moradia (Moradia): Tipo de moradia do adotante.
         areaUtil (float): Espaço útil da moradia.
-        experiencia (bool): Experiencia com outros animais.
-        criancasEmCasa (bool): Se há crianças em casa.
-        outrosAnimais (bool): Se há outros animais em casa.
+        experiencia (bool, optional): Experiencia com outros animais.
+        criancasEmCasa (bool, optional): Se há crianças em casa.
+        outrosAnimais (bool, optional): Se há outros animais em casa.
     """
 
     def __init__(
@@ -26,9 +26,9 @@ class Adotante(Pessoa):
         telefone: str,
         moradia: Moradia,
         areaUtil: float,
-        experiencia: bool,
-        criancasEmCasa: bool,
-        outrosAnimais: bool,
+        experiencia: bool = False,
+        criancasEmCasa: bool = False,
+        outrosAnimais: bool = False,
         id=None,
     ):
         super().__init__(nome, idade, id)

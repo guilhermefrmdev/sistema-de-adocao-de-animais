@@ -1,0 +1,84 @@
+{
+  "politicas": {
+    "idade_minima_adotante": 18,
+    "porte_restrito": {
+      "portes": ["GRANDE", "GIGANTE"],
+      "moradia_exigida": "CASA",
+      "area_minima_m2": 50
+    }
+  },
+
+  "reserva_horas": 48,
+
+  "compatibilidade": {
+    "pesos": {
+      "porte_moradia": 30,
+      "idade_energia": 25,
+      "experiencia": 25,
+      "criancas": 20
+    },
+    "porte_moradia": {
+      "CASA": {
+        "MINI": 1.0,
+        "PEQUENO": 1.0,
+        "MEDIO": 1.0,
+        "GRANDE": 1.0,
+        "GIGANTE": 1.0
+      },
+      "APARTAMENTO": {
+        "MINI": 1.0,
+        "PEQUENO": 1.0,
+        "MEDIO": 0.7,
+        "GRANDE": 0.3,
+        "GIGANTE": 0.1
+      }
+    },
+    "area_ideal_m2": {
+      "MINI": 10,
+      "PEQUENO": 15,
+      "MEDIO": 30,
+      "GRANDE": 50,
+      "GIGANTE": 70
+    },
+    "energia": {
+      "idade_filhote_meses": 12,
+      "idade_senior_meses": 96,
+      "padrao_por_fase": { "filhote": 5, "adulto": 3, "senior": 2 },
+      "ajuste_necessidade_passeio": 1,
+      "ajuste_independencia": { "BAIXA": 1, "MEDIA": 0, "ALTA": -1 },
+      "capacidade_adotante_por_idade": [
+        { "idade_ate": 40, "nivel": 5 },
+        { "idade_ate": 55, "nivel": 4 },
+        { "idade_ate": 65, "nivel": 3 },
+        { "idade_ate": 200, "nivel": 2 }
+      ]
+    },
+    "experiencia": {
+      "animal_comum": { "com_experiencia": 1.0, "sem_experiencia": 0.7 },
+      "animal_exigente": { "com_experiencia": 1.0, "sem_experiencia": 0.3 }
+    },
+    "criancas": {
+      "sem_criancas": 1.0,
+      "com_criancas_amigavel": 1.0,
+      "com_criancas_neutro": 0.7,
+      "com_criancas_arriscado": 0.2
+    },
+    "temperamentos_arriscados": ["arisco", "agressivo", "medroso"],
+    "temperamentos_exigentes": ["arisco", "agressivo", "agitado", "dominante"],
+    "temperamentos_amigaveis": ["docil", "sociavel", "brincalhao"]
+  },
+
+  "taxas": {
+    "estrategia_padrao": "padrao",
+    "valor_base": 100.0,
+    "senior": { "idade_minima_meses": 96, "desconto": 0.5 },
+    "filhote": { "idade_maxima_meses": 12, "custo_vacinas": 80.0 },
+    "especial": { "custo_tratamento": 150.0 }
+  },
+
+  "fila_espera": {
+    "peso_pontuacao": 0.7,
+    "peso_tempo_espera": 0.3,
+    "dias_espera_max_normalizacao": 30
+  }
+}

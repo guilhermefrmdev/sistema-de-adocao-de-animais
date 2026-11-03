@@ -162,28 +162,28 @@ class AnimalRepository:
 
             cursor.execute("DELETE FROM animais WHERE id = ?", (id,))
 
-        # Gera um relatório simples com os animais disponíveis e adotados.
-        def relatorioDisponiveisAdotados(self) -> str:
-            grupos = [
-                ("DISPONÍVEIS", StatusAnimal.DISPONIVEL.name),
-                ("ADOTADOS", StatusAnimal.ADOTADO.name),
-            ]
-            linhas = ["===== RELATÓRIO DE ANIMAIS ====="]
+    # Gera um relatório simples com os animais disponíveis e adotados.
+    def relatorioDisponiveisAdotados(self) -> str:
+        grupos = [
+            ("DISPONÍVEIS", StatusAnimal.DISPONIVEL.name),
+            ("ADOTADOS", StatusAnimal.ADOTADO.name),
+        ]
+        linhas = ["===== RELATÓRIO DE ANIMAIS ====="]
 
-            with self.conectar() as connection:
-                cursor = connection.cursor()
+        with self.conectar() as connection:
+            cursor = connection.cursor()
 
-                for titulo, status in grupos:
-                    cursor.execute(
-                        "SELECT id, nome, raca, porte FROM animais WHERE status = ? ORDER BY nome",
-                        (status,),
-                    )
-                    animais = cursor.fetchall()
+            for titulo, status in grupos:
+                cursor.execute(
+                    "SELECT id, nome, raca, porte FROM animais WHERE status = ? ORDER BY nome",
+                    (status,),
+                )
+                animais = cursor.fetchall()
 
-                    linhas.append(f"\n--- {titulo} ({len(animais)}) ---")
-                    if not animais:
-                        linhas.append("Nenhum animal.")
-                    for id, nome, raca, porte in animais:
-                        linhas.append(f"#{id} - {nome} | Raça: {raca} | Porte: {porte}")
+                linhas.append(f"\n--- {titulo} ({len(animais)}) ---")
+                if not animais:
+                    linhas.append("Nenhum animal.")
+                for id, nome, raca, porte in animais:
+                    linhas.append(f"#{id} - {nome} | Raça: {raca} | Porte: {porte}")
 
-            return "\n".join(linhas)
+        return "\n".join(linhas)

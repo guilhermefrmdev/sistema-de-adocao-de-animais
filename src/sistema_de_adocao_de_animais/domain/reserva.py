@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 from sistema_de_adocao_de_animais.domain.adotante import Adotante
 from sistema_de_adocao_de_animais.domain.animal import Animal
+from sistema_de_adocao_de_animais.enums.status_animal import StatusAnimal
 from sistema_de_adocao_de_animais.repositories.reserva_repository import (
     ReservaRepository,
 )
@@ -128,6 +129,33 @@ class Reserva(ReservaRepository):
                 f"O status deve ser um destes: {', '.join(self.STATUS_VALIDOS)}."
             )
         self._status = novo_status
+
+    # Expirar automaticamente
+    def expirar_vencida(self, agora: datetime = None) -> bool:
+        """Expira a reserva caso seu prazo tenha terminado.
+
+        Args:
+            agora (datetime, optional): Data utilizada para verificar a expiração.
+                Se não informada, utiliza a data atual.
+
+        Returns:
+            bool: True se a reserva foi expirada, False caso contrário.
+        """
+        agora = agora if agora is not None else datetime.now()
+
+        if self.status != "ATIVA":
+            return False
+
+        if agora < self.dataExpiracao:
+            return False
+
+        if self.animal.status == StatusAnimal.ADOTADO:
+            return False
+
+        self.status = "EXPIRADA"
+        self.animal.status = StatusAnimal.DISPONIVEL
+
+        return True
 
     # Métodos Especiais
     def __str__(self) -> str:
