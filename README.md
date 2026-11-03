@@ -131,3 +131,17 @@ python main.py reserva rodar-expiracao --agora "2026-11-06 14:30"
 ```
 
 A expiração registra o evento no histórico do animal e informa o próximo adotante na fila, quando existe uma fila cadastrada para ele.
+
+
+## CLI da lista de espera
+
+O grupo `fila` mantém a lista de interessados por animal. Ao entrar, o sistema calcula a compatibilidade e combina a pontuação com o tempo de espera usando os pesos definidos em `settings.json`. A consulta recalcula a prioridade e exibe a fila em ordem atual.
+
+```bash
+python main.py fila --help
+python main.py fila entrar 1 1
+python main.py fila ver 1
+python main.py fila sair 1 1
+```
+
+Os argumentos de `entrar` e `sair` são, nessa ordem, o ID do adotante e o ID do animal. Para `ver`, informe apenas o ID do animal.
