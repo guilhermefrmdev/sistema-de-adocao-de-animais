@@ -62,3 +62,29 @@
 │
 └───tests
 ```
+
+## CLI de animais (Typer + Rich)
+
+A CLI permite cadastrar e administrar cachorros e gatos, consultar animais e manter o histórico.
+Execute na raiz do repositório:
+
+```bash
+python main.py --help
+python main.py animal --help
+python main.py animal cachorro cadastrar --help
+```
+
+Exemplos:
+
+```bash
+python main.py animal cachorro cadastrar "Rex" 24 "Labrador" M 18 GRANDE --castrado --temperamento "calmo,brincalhao"
+python main.py animal gato cadastrar "Mimi" 12 "SRD" F 4 PEQUENO MEDIA CURTO
+python main.py animal listar --status DISPONIVEL --idade-max 36
+python main.py animal ver 1
+python main.py animal vacinar 1 "Antirrábica"
+python main.py animal historico 1
+python main.py animal mudar-status 1 RESERVADO
+```
+
+As datas usam `AAAA-MM-DD`. O banco SQLite fica em `src/sistema_de_adocao_de_animais/database/database.db`.
+Os comandos de alteração confirmam o sucesso em um painel Rich; erros de validação são exibidos sem traceback.
