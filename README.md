@@ -88,3 +88,28 @@ python main.py animal mudar-status 1 RESERVADO
 
 As datas usam `AAAA-MM-DD`. O banco SQLite fica em `src/sistema_de_adocao_de_animais/database/database.db`.
 Os comandos de alteração confirmam o sucesso em um painel Rich; erros de validação são exibidos sem traceback.
+
+## CLI de adotantes (Typer + Rich)
+
+O grupo `adotante` permite cadastrar, consultar, atualizar e excluir adotantes, além de avaliar elegibilidade e compatibilidade com um animal. Consulte os comandos disponíveis:
+
+```bash
+python main.py adotante --help
+python main.py adotante cadastrar --help
+python main.py adotante atualizar --help
+```
+
+Exemplos:
+
+```bash
+python main.py adotante cadastrar "Maria Silva" 30 88999999999 CASA 80 --experiencia --criancas-em-casa
+python main.py adotante listar
+python main.py adotante ver 1
+python main.py adotante atualizar 1 --area-util 100 --sem-criancas
+python main.py adotante elegivel 1 1
+python main.py adotante compatibilidade 1 1
+python main.py adotante excluir 1
+python main.py adotante excluir 1 --sim
+```
+
+O telefone deve conter 11 dígitos numéricos (DDD + número). A elegibilidade usa as políticas de `settings.json`; a compatibilidade apresenta a pontuação de 0 a 100 e as notas dos critérios ponderados. As listagens e os resultados são estilizados com Rich.
