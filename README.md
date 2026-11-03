@@ -62,3 +62,86 @@
 │
 └───tests
 ```
+
+## CLI de animais (Typer + Rich)
+
+A CLI permite cadastrar e administrar cachorros e gatos, consultar animais e manter o histórico.
+Execute na raiz do repositório:
+
+```bash
+python main.py --help
+python main.py animal --help
+python main.py animal cachorro cadastrar --help
+```
+
+Exemplos:
+
+```bash
+python main.py animal cachorro cadastrar "Rex" 24 "Labrador" M 18 GRANDE --castrado --temperamento "calmo,brincalhao"
+python main.py animal gato cadastrar "Mimi" 12 "SRD" F 4 PEQUENO MEDIA CURTO
+python main.py animal listar --status DISPONIVEL --idade-max 36
+python main.py animal ver 1
+python main.py animal vacinar 1 "Antirrábica"
+python main.py animal historico 1
+python main.py animal mudar-status 1 RESERVADO
+```
+
+As datas usam `AAAA-MM-DD`. O banco SQLite fica em `src/sistema_de_adocao_de_animais/database/database.db`.
+Os comandos de alteração confirmam o sucesso em um painel Rich; erros de validação são exibidos sem traceback.
+
+## CLI de adotantes (Typer + Rich)
+
+O grupo `adotante` permite cadastrar, consultar, atualizar e excluir adotantes, além de avaliar elegibilidade e compatibilidade com um animal. Consulte os comandos disponíveis:
+
+```bash
+python main.py adotante --help
+python main.py adotante cadastrar --help
+python main.py adotante atualizar --help
+```
+
+Exemplos:
+
+```bash
+python main.py adotante cadastrar "Maria Silva" 30 88999999999 CASA 80 --experiencia --criancas-em-casa
+python main.py adotante listar
+python main.py adotante ver 1
+python main.py adotante atualizar 1 --area-util 100 --sem-criancas
+python main.py adotante elegivel 1 1
+python main.py adotante compatibilidade 1 1
+python main.py adotante excluir 1
+python main.py adotante excluir 1 --sim
+```
+
+O telefone deve conter 11 dígitos numéricos (DDD + número). A elegibilidade usa as políticas de `settings.json`; a compatibilidade apresenta a pontuação de 0 a 100 e as notas dos critérios ponderados. As listagens e os resultados são estilizados com Rich.
+
+
+## CLI de reservas (Typer + Rich)
+
+O grupo `reserva` valida a elegibilidade do adotante e calcula a compatibilidade antes de criar uma reserva. A duração é lida de `settings.json` (48 horas por padrão). Uma reserva ativa muda o animal para `RESERVADO`; o cancelamento ou a expiração libera o animal novamente.
+
+```bash
+python main.py reserva --help
+python main.py reserva criar 1 1
+python main.py reserva listar
+python main.py reserva listar --status ATIVA
+python main.py reserva listar --animal 1 --adotante 1
+python main.py reserva cancelar 1
+python main.py reserva rodar-expiracao
+python main.py reserva rodar-expiracao --agora "2026-11-06 14:30"
+```
+
+A expiração registra o evento no histórico do animal e informa o próximo adotante na fila, quando existe uma fila cadastrada para ele.
+
+
+## CLI da lista de espera
+
+O grupo `fila` mantém a lista de interessados por animal. Ao entrar, o sistema calcula a compatibilidade e combina a pontuação com o tempo de espera usando os pesos definidos em `settings.json`. A consulta recalcula a prioridade e exibe a fila em ordem atual.
+
+```bash
+python main.py fila --help
+python main.py fila entrar 1 1
+python main.py fila ver 1
+python main.py fila sair 1 1
+```
+
+Os argumentos de `entrar` e `sair` são, nessa ordem, o ID do adotante e o ID do animal. Para `ver`, informe apenas o ID do animal.
